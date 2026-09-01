@@ -1,9 +1,9 @@
 "use client";
 import { useState, useEffect } from 'react';
-import { supabase } from '@/lib/supabase';
+import { supabase } from '../lib/supabase'; 
 import { 
-  Clock, Cloud, Mail, Facebook, ListTodo, Calendar, 
-  Dumbbell, Book, Plus, Trash2, CheckCircle2, Circle, ChevronRight
+  Cloud, Mail, MessageCircle, ListTodo, Calendar, 
+  Dumbbell, Book, Plus, Trash2, CircleCheck, Circle, ChevronRight
 } from 'lucide-react';
 import { format } from 'date-fns';
 import { vi } from 'date-fns/locale';
@@ -144,7 +144,7 @@ export default function Dashboard() {
             {tasks.map(task => (
               <div key={task.id} className="group flex items-center justify-between bg-white/5 p-3 rounded-xl border border-white/5 hover:border-white/20 transition">
                 <div className="flex items-center gap-3 flex-1 cursor-pointer" onClick={() => toggleTask(task.id, task.is_completed)}>
-                  {task.is_completed ? <CheckCircle2 className="text-emerald-500" size={18} /> : <Circle className="text-slate-500" size={18} />}
+                  {task.is_completed ? <CircleCheck className="text-emerald-500" size={18} /> : <Circle className="text-slate-500" size={18} />}
                   <span className={`text-sm ${task.is_completed ? 'line-through opacity-40' : ''}`}>{task.text}</span>
                 </div>
                 <button onClick={() => deleteTask(task.id)} className="opacity-0 group-hover:opacity-100 text-red-400 transition">
@@ -179,8 +179,9 @@ export default function Dashboard() {
           </div>
 
           <div className="glass-card p-4 h-40">
+            {/* Đổi thành MessageCircle ở phần UI */}
             <div className="flex items-center gap-2 mb-3 text-blue-600">
-              <Facebook size={20} />
+              <MessageCircle size={20} />
               <h2 className="font-semibold text-white/90">Tin nhắn FB</h2>
             </div>
             <div className="flex items-center gap-3 bg-white/5 p-2 rounded-lg">
