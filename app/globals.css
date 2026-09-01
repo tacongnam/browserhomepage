@@ -1,6 +1,5 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* 1. Dùng cú pháp import mới của Tailwind v4 */
+@import "tailwindcss";
 
 :root {
   --foreground-rgb: 255, 255, 255;
@@ -13,8 +12,21 @@ body {
   overflow-x: hidden;
 }
 
+/* 2. Dùng CSS thuần cho glass-card thay vì @apply để tránh lỗi build */
 .glass-card {
-  @apply bg-white/5 border border-white/10 backdrop-blur-xl rounded-2xl;
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(24px);
+  border-radius: 1rem;
 }
 
-.no-scrollbar::-webkit-scrollbar { display: none; }
+/* 3. Đưa tiện ích ẩn thanh cuộn vào layer utilities */
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar { 
+    display: none; 
+  }
+  .no-scrollbar { 
+    -ms-overflow-style: none; 
+    scrollbar-width: none; 
+  }
+}
