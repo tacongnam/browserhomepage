@@ -1,0 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 255, 255, 255;
+  --background-start-rgb: 2, 6, 23;
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: rgb(var(--background-start-rgb));
+  overflow-x: hidden;
+}
+
+.glass-card {
+  @apply bg-white/5 border border-white/10 backdrop-blur-xl rounded-2xl;
+}
+
+.no-scrollbar::-webkit-scrollbar { display: none; }
