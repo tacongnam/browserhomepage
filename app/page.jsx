@@ -201,6 +201,13 @@ export default function Dashboard() {
     ? "bg-slate-900/80 border border-slate-800/80 backdrop-blur-md rounded-2xl shadow-sm" 
     : "bg-white/90 border border-slate-200/80 backdrop-blur-md rounded-2xl shadow-sm";
 
+  const currentYear = currentTime.getFullYear();
+  const currentMonth = currentTime.getMonth();
+  const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+  const firstDayIndex = new Date(currentYear, currentMonth, 1).getDay();
+  // Chuyển đổi getDay() (Chủ nhật = 0) sang định dạng Thứ 2 = 0 ... Chủ nhật = 6
+  const startOffset = (firstDayIndex + 6) % 7;
+
   return (
     <div className={`min-h-screen lg:h-screen flex flex-col ${theme === 'dark' ? 'bg-slate-950 text-slate-100' : 'bg-slate-50 text-slate-800'} p-3 lg:p-4 overflow-y-auto lg:overflow-hidden transition-colors`}>
       
@@ -260,7 +267,14 @@ export default function Dashboard() {
             {/* Lịch tháng thu hẹp gap và padding */}
             <div className="grid grid-cols-7 gap-0.5 text-center text-xs">
               {['T2','T3','T4','T5','T6','T7','CN'].map(d => <div key={d} className="opacity-40 pb-1 font-medium">{d}</div>)}
-              {Array.from({length: 31}).map((_, i) => {
+              
+              {/* Các ô trống đầu tháng để căn đúng thứ */}
+              {Array.from({ length: startOffset }).map((_, i) => (
+                <div key={`empty-${i}`} className="py-1 px-1.5"></div>
+              ))}
+
+              {/* Render các ngày thực tế trong tháng */}
+              {Array.from({length: daysInMonth}).map((_, i) => {
                 const day = i + 1;
                 const hasEvent = schedules.some(s => s.day_of_month === day);
                 const isSelected = selectedDay === day;
