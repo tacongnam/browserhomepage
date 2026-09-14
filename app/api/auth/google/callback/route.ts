@@ -1,6 +1,6 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(request) {
+export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
   const code = searchParams.get("code");
 
@@ -18,11 +18,10 @@ export async function GET(request) {
     },
     body: new URLSearchParams({
       code,
-      client_id: process.env.GOOGLE_CLIENT_ID,
-      client_secret: process.env.GOOGLE_CLIENT_SECRET,
-      redirect_uri:
-        "http://localhost:3000/api/auth/google/callback",
-      grant_type: "authorization_code",
+      client_id:     process.env.GOOGLE_CLIENT_ID     ?? "",
+      client_secret: process.env.GOOGLE_CLIENT_SECRET ?? "",
+      redirect_uri:  "http://localhost:3000/api/auth/google/callback",
+      grant_type:    "authorization_code",
     }),
   });
 
@@ -34,6 +33,6 @@ export async function GET(request) {
 
   return NextResponse.json({
     refresh_token: data.refresh_token,
-    scope: data.scope,
+    scope:         data.scope,
   });
 }
