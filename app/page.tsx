@@ -261,28 +261,28 @@ export default function Dashboard() {
 
   // ── Theme classes ──────────────────────────────────────────────────────────
   const cardClass = theme === "dark"
-    ? "bg-slate-900/80 border border-slate-800/80 backdrop-blur-md rounded-2xl shadow-sm"
-    : "bg-white/90 border border-slate-200/80 backdrop-blur-md rounded-2xl shadow-sm";
+    ? "bg-[#242522]/90 border border-white/[0.08] backdrop-blur-xl rounded-[1.5rem] shadow-[0_8px_30px_rgba(0,0,0,0.16)]"
+    : "bg-[#fffdf8]/90 border border-[#6f6b5f]/[0.12] backdrop-blur-xl rounded-[1.5rem] shadow-[0_8px_30px_rgba(76,65,42,0.06)]";
 
   // ─────────────────────────────────────────────────────────────────────────
 
   return (
     <div className={`
       min-h-screen lg:h-screen flex flex-col
-      ${theme === "dark" ? "bg-slate-950 text-slate-100" : "bg-slate-50 text-slate-800"}
-      p-3 lg:p-4 overflow-y-auto lg:overflow-hidden transition-colors
+      ${theme === "dark" ? "bg-[#191a18] text-[#eeeae1]" : "bg-[#f4f1e9] text-[#34352f]"}
+      p-3 sm:p-4 lg:p-5 overflow-y-auto lg:overflow-hidden transition-colors duration-300
     `}>
 
       {/* ── HEADER ─────────────────────────────────────────────────────────── */}
-      <div className="flex-none grid grid-cols-1 md:grid-cols-4 gap-3 mb-3">
+      <div className="flex-none grid grid-cols-1 md:grid-cols-4 gap-3 lg:gap-4 mb-3 lg:mb-4">
 
         {/* Clock */}
-        <div className={`${cardClass} p-3.5 lg:p-4 flex items-center justify-between col-span-1 md:col-span-3`}>
+        <div className={`${cardClass} p-4 sm:p-5 flex items-center justify-between col-span-1 md:col-span-3`}>
           <div>
-            <h1 className="text-3xl lg:text-4xl font-semibold tracking-tight">
+            <h1 className="text-4xl sm:text-5xl lg:text-[3.25rem] font-light tracking-[-0.06em]">
               {isMounted ? format(currentTime, "HH:mm:ss") : "--:--:--"}
             </h1>
-            <p className="text-sm opacity-70 mt-0.5 capitalize">
+            <p className="text-xs sm:text-sm opacity-60 mt-1.5 capitalize tracking-wide">
               {format(currentTime, "eeee, dd MMMM yyyy", { locale: vi })}
             </p>
           </div>
@@ -305,12 +305,12 @@ export default function Dashboard() {
         </div>
 
         {/* Dynamic reminder */}
-        <div className={`${cardClass} p-3.5 lg:p-4 flex flex-col justify-center bg-indigo-500/5 border-indigo-500/10 col-span-1`}>
-          <div className="flex items-center gap-2 text-indigo-500 mb-1">
+        <div className={`${cardClass} p-4 sm:p-5 flex flex-col justify-center bg-[#b5a48a]/10 border-[#b5a48a]/20 col-span-1`}>
+          <div className="flex items-center gap-2 text-[#b49b78] mb-1">
             <Activity size={16} />
-            <p className="text-xs font-semibold uppercase tracking-wider">Nhắc nhở</p>
+            <p className="text-[10px] font-semibold uppercase tracking-[0.2em]">Nhắc nhở</p>
           </div>
-          <p className="text-sm italic opacity-90 leading-snug">{reminder || "Hãy chăm sóc bản thân bạn hôm nay!"}</p>
+          <p className="text-sm leading-relaxed opacity-85">{reminder || "Hãy chăm sóc bản thân bạn hôm nay!"}</p>
         </div>
       </div>
 
@@ -322,12 +322,12 @@ export default function Dashboard() {
         <CollapsibleWidget
           title={selectedDay ? `Lịch ngày ${selectedDay}` : "Lịch trình sắp tới"}
           icon={<Book size={16} />}
-          accentClass="text-purple-500"
+          accentClass="text-[#a58bba]"
           cardClass={cardClass}
           defaultOpen={true}
           headerExtra={
             <button onClick={() => setIsSchedModalOpen(true)}
-              className="p-1 bg-purple-500/10 hover:bg-purple-500/20 text-purple-500 rounded-lg transition">
+              className="p-1 bg-[#a58bba]/10 hover:bg-[#a58bba]/20 text-[#a58bba] rounded-lg transition">
               <Plus size={14} />
             </button>
           }
@@ -335,7 +335,7 @@ export default function Dashboard() {
           <div className="space-y-2 pt-2">
             {pagedSchedules.length === 0 && <p className="text-xs text-center opacity-40 py-4">Không có sự kiện nào.</p>}
             {pagedSchedules.map((sched) => (
-              <div key={sched.id} className="group relative pl-3 border-l-2 border-purple-500/40 bg-current/5 py-2 px-3 rounded-r-xl hover:bg-current/10 transition">
+              <div key={sched.id} className="group relative pl-3 border-l-2 border-[#a58bba]/50 bg-current/5 py-2 px-3 rounded-r-xl hover:bg-current/10 transition">
                 <p className="text-[11px] opacity-60 font-mono mb-0.5">Ngày {sched.day_of_month} • {sched.time_range}</p>
                 <p className="text-sm font-medium">{sched.title}</p>
                 <button onClick={() => deleteSchedule(sched.id)}
@@ -350,7 +350,7 @@ export default function Dashboard() {
       </div>
 
       {/* ── DESKTOP 3-COLUMN GRID ──────────────────────────────────────────── */}
-      <div className="flex-1 grid grid-cols-1 lg:grid-cols-3 gap-3 lg:min-h-0 pb-3 lg:pb-0">
+      <div className="flex-1 grid grid-cols-1 lg:grid-cols-3 gap-3 lg:gap-4 lg:min-h-0 pb-3 lg:pb-0">
 
         {/* ── COL 1: Calendar + Lifestyle ──────────────────────────────────── */}
         <div className="flex flex-col gap-3 lg:min-h-0">
@@ -373,13 +373,13 @@ export default function Dashboard() {
           <CollapsibleWidget
             title="Lifestyle & Thói quen"
             icon={<Dumbbell size={16} />}
-            accentClass="text-amber-500"
+            accentClass="text-[#c49b62]"
             cardClass={cardClass}
             defaultOpen={false}
             className="lg:flex-1"
             headerExtra={
               <button onClick={() => setIsLifeModalOpen(true)}
-                className="p-1 bg-amber-500/10 hover:bg-amber-500/20 text-amber-500 rounded-lg transition">
+                className="p-1 bg-[#c49b62]/10 hover:bg-[#c49b62]/20 text-[#c49b62] rounded-lg transition">
                 <Plus size={14} />
               </button>
             }
@@ -404,8 +404,8 @@ export default function Dashboard() {
 
         {/* ── COL 2: Schedule (desktop only — plain card, no collapse needed) ── */}
         <div className="hidden lg:flex flex-col gap-3 lg:min-h-0">
-          <div className={`${cardClass} p-3.5 lg:p-4 flex flex-col lg:flex-1 lg:min-h-0`}>
-            <div className="flex items-center justify-between mb-2.5 text-purple-500 flex-none">
+          <div className={`${cardClass} p-4 sm:p-5 flex flex-col lg:flex-1 lg:min-h-0`}>
+            <div className="flex items-center justify-between mb-2.5 text-[#a58bba] flex-none">
               <div className="flex items-center gap-2">
                 <Book size={16} />
                 <h2 className="font-semibold text-sm tracking-wide">
@@ -413,14 +413,14 @@ export default function Dashboard() {
                 </h2>
               </div>
               <button onClick={() => setIsSchedModalOpen(true)}
-                className="p-1 bg-purple-500/10 hover:bg-purple-500/20 text-purple-500 rounded-lg transition">
+                className="p-1 bg-[#a58bba]/10 hover:bg-[#a58bba]/20 text-[#a58bba] rounded-lg transition">
                 <Plus size={14} />
               </button>
             </div>
             <div className="space-y-2 flex-1">
               {pagedSchedules.length === 0 && <p className="text-xs text-center opacity-40 py-6">Không có sự kiện nào.</p>}
               {pagedSchedules.map((sched) => (
-                <div key={sched.id} className="group relative pl-3 border-l-2 border-purple-500/40 bg-current/5 py-2 px-3 rounded-r-xl hover:bg-current/10 transition">
+                <div key={sched.id} className="group relative pl-3 border-l-2 border-[#a58bba]/50 bg-current/5 py-2 px-3 rounded-r-xl hover:bg-current/10 transition">
                   <p className="text-[11px] opacity-60 font-mono mb-0.5">Ngày {sched.day_of_month} • {sched.time_range}</p>
                   <p className="text-sm font-medium">{sched.title}</p>
                   <button onClick={() => deleteSchedule(sched.id)}
@@ -441,15 +441,15 @@ export default function Dashboard() {
           <CollapsibleWidget
             title="Công việc cần làm"
             icon={<ListTodo size={16} />}
-            accentClass="text-indigo-500"
+            accentClass="text-[#8797b7]"
             cardClass={cardClass}
             defaultOpen={false}
             className="lg:flex-1"
             headerExtra={
               <div className="flex items-center gap-2">
-                <span className="text-[11px] bg-indigo-500/10 px-2 py-0.5 rounded font-medium">{tasks.length}</span>
+                <span className="text-[11px] bg-[#8797b7]/10 px-2 py-0.5 rounded font-medium">{tasks.length}</span>
                 <button onClick={() => setIsTaskModalOpen(true)}
-                  className="p-1 bg-indigo-500/10 hover:bg-indigo-500/20 text-indigo-500 rounded-lg transition">
+                  className="p-1 bg-[#8797b7]/10 hover:bg-[#8797b7]/20 text-[#8797b7] rounded-lg transition">
                   <Plus size={14} />
                 </button>
               </div>
@@ -517,7 +517,7 @@ export default function Dashboard() {
           <CollapsibleWidget
             title="Emails Quan trọng"
             icon={<Mail size={16} />}
-            accentClass="text-blue-500"
+            accentClass="text-[#7899a3]"
             cardClass={cardClass}
             defaultOpen={false}
             scrollable
@@ -546,7 +546,7 @@ export default function Dashboard() {
               <span className={`text-[11px] font-bold uppercase tracking-wider px-2 py-0.5 rounded ${
                 selectedEmail.isVerification ? "text-violet-400 bg-violet-500/10"
                 : selectedEmail.sender?.includes("hust.edu.vn") ? "text-red-500 bg-red-500/10"
-                : "text-blue-500 bg-blue-500/10"}`}>
+                : "text-[#7899a3] bg-[#7899a3]/10"}`}>
                 {selectedEmail.isVerification ? "Xác minh" : selectedEmail.sender?.includes("hust.edu.vn") ? "HUST" : selectedEmail.type}
               </span>
               <span className="text-xs opacity-60">{selectedEmail.time}</span>
@@ -574,7 +574,7 @@ export default function Dashboard() {
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
           <div className={`${cardClass} w-full max-w-md p-5 relative`}>
             <button onClick={() => setIsTaskModalOpen(false)} className="absolute top-4 right-4 p-1.5 opacity-50 hover:opacity-100"><X size={18} /></button>
-            <h3 className="text-base font-medium mb-4 text-indigo-500">Thêm công việc mới</h3>
+            <h3 className="text-base font-medium mb-4 text-[#8797b7]">Thêm công việc mới</h3>
             <form onSubmit={addTask} className="space-y-3">
               <input value={newTask} onChange={(e) => setNewTask(e.target.value)} placeholder="Nhập nội dung công việc..."
                 className="w-full bg-current/5 border border-current/10 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:border-indigo-500" autoFocus />
@@ -592,7 +592,7 @@ export default function Dashboard() {
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
           <div className={`${cardClass} w-full max-w-md p-5 relative`}>
             <button onClick={() => setIsSchedModalOpen(false)} className="absolute top-4 right-4 p-1.5 opacity-50 hover:opacity-100"><X size={18} /></button>
-            <h3 className="text-base font-medium mb-4 text-purple-500">Thêm lịch học / sự kiện</h3>
+            <h3 className="text-base font-medium mb-4 text-[#a58bba]">Thêm lịch học / sự kiện</h3>
             <form onSubmit={addSchedule} className="space-y-3">
               <input value={newSchedTitle} onChange={(e) => setNewSchedTitle(e.target.value)} placeholder="Tên môn học / sự kiện"
                 className="w-full bg-current/5 border border-current/10 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:border-purple-500" autoFocus />
@@ -616,7 +616,7 @@ export default function Dashboard() {
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
           <div className={`${cardClass} w-full max-w-md p-5 relative`}>
             <button onClick={() => setIsLifeModalOpen(false)} className="absolute top-4 right-4 p-1.5 opacity-50 hover:opacity-100"><X size={18} /></button>
-            <h3 className="text-base font-medium mb-4 text-amber-500">Thêm thói quen mục tiêu</h3>
+            <h3 className="text-base font-medium mb-4 text-[#c49b62]">Thêm thói quen mục tiêu</h3>
             <form onSubmit={addLifestyle} className="space-y-3">
               <input value={newLifestyle} onChange={(e) => setNewLifestyle(e.target.value)} placeholder="VD: Uống đủ 2L nước..."
                 className="w-full bg-current/5 border border-current/10 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:border-amber-500" autoFocus />
